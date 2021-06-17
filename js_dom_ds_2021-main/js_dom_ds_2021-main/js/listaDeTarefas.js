@@ -1,34 +1,46 @@
-const novaTarefa = document.querySelector('[data-form-button]')
-const inputTarefa= document.querySelector('[data-form-input]')
+( () => {
+    const novaTarefa = document.querySelector('[data-form-button]')
+    const inputTarefa = document.querySelector('[data-form-input]')
 
-//console.log(novaTarefa);//
-//console.log(inputTarefa);//
+    function criarBotaoDelete(){
+        const botaoDelete = document.createElement('span')
+        botaoDelete.innerText = "x"
+        botaoDelete.classList = "close"
 
-//function criarTarefa(evento){//
-   // evento.preventDefault()//
-    //console.log(inputTarefa.value)//
+        botaoDelete.addEventListener('click', deletarTarefa)
+        
+        console.log(botaoDelete)
 
-   // const valorTarefa = inputTarefa.value//
-   // const listaDeTarefas = document.querySelector('[data-task]')//
-//} //
+        return botaoDelete
+    }
 
-function criarTarefa(evento){
-    evento.preventDefault()
+    function deletarTarefa(evento){
+        
+        const botaoDeleteClicado = evento.target
+        const itemDaLista = botaoDeleteClicado.parentElement
+        itemDaLista.remove()
+    }
 
-    const valorTarefa = inputTarefa.value
-    const listaDeTarefas = document.querySelector('[data-task]')
+    function criarTarefa(evento){
+        evento.preventDefault()
 
-    novaLabel = document.createElement('label')
-    novaLabel.innerText = valorTarefa
-    novaLabel.className = "form-check-label"
+        const valorTarefa = inputTarefa.value
+        const listaDeTarefas = document.querySelector('[data-task]')
 
-    novoItem = document.createElement('li')
-    novoItem.appendChild(novaLabel)
+        novaLabel = document.createElement('label')
+        novaLabel.innerText = `- ${valorTarefa}`;
+        novaLabel.className = "form-check-label"
 
-    listaDeTarefas.appendChild(novoItem)
+        novoItem = document.createElement('li')
+        novoItem.appendChild(novaLabel)
+        novoItem.appendChild(criarBotaoDelete())
+        
+        listaDeTarefas.appendChild(novoItem)
 
-    inputTarefa.value = ""
+        inputTarefa.value = ""
 
-}
-novaTarefa.addEventListener('click', criarTarefa)
+    }
 
+
+    novaTarefa.addEventListener('click', criarTarefa)
+})()
